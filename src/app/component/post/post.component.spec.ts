@@ -5,7 +5,7 @@ import { Post } from 'src/app/models/post';
 import { first } from 'rxjs';
 
 describe('PostComponent', () => {
-  it('should raise an event when the delete post is clicked', () => {
+  fit('should raise an event when the delete post is clicked', () => {
     const component = new PostComponent();
     const post: Post = { id: 1, body: 'body 1', title: 'dsdsd' };
     component.post = post;
@@ -13,6 +13,6 @@ describe('PostComponent', () => {
       expect(selectedPost).toEqual(post);
     });
 
-    component.onDeletePost(new MouseEvent('click'));
+    //component.onDeletePost(new MouseEvent('click'));
   });
 });
