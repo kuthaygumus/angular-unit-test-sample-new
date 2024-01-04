@@ -1,16 +1,67 @@
+import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-
+import { of } from 'rxjs';
 import { PostService } from './post.service';
 
-xdescribe('PostService', () => {
-  let service: PostService;
-
+fdescribe('Post Service', () => {
+  let httpClientSpy: jasmine.SpyObj<HttpClient>;
+  let postService: PostService;
+  let POSTS = [
+    {
+      id: 1,
+      body: 'body 1',
+      title: 'title 1',
+    },
+    {
+      id: 2,
+      body: 'body 2',
+      title: 'title 2',
+    },
+    {
+      id: 3,
+      body: 'body 3',
+      title: 'title 3',
+    },
+  ];
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(PostService);
+    let httpClientSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
+    TestBed.configureTestingModule({
+      providers: [
+        PostService,
+        {
+          provide: HttpClient,
+          useValue: httpClientSpyObj,
+        },
+      ],
+    });
+    postService = TestBed.inject(PostService);
+    httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  describe('getPosts()', () => {
+    it('should return expected posts when getposts is called', (done: DoneFn) => {
+      httpClientSpy.get.and.returnValue(of(POSTS));
+      postService.getPosts().subscribe({
+        next: (posts) => {
+          expect(posts).toEqual(POSTS);
+          done();
+        },
+        error: () => {
+          done.fail;
+        },
+      });
+      expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return expected posts when getposts is called without done', () => {
+      httpClientSpy.get.and.returnValue(of(POSTS));
+      postService.getPosts().subscribe({
+        next: (posts) => {
+          setTimeout(() => {
+            expect(posts).toEqual(POSTS);
+          }, 200);
+        }
+      });
+    });
   });
 });

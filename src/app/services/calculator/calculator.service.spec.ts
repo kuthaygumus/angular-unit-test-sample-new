@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { LoggerService } from '../logger/logger.service';
 import { CalculatorService } from './calculator.service';
 
-fdescribe('CalculatorService', () => {
+describe('CalculatorService', () => {
   let loggerServiceSpy: jasmine.SpyObj<LoggerService>;
   let calculator: CalculatorService;
 
