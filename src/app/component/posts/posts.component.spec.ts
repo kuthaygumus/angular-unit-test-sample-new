@@ -12,13 +12,13 @@ describe('Posts Component', () => {
   let mockPostService: any;
   let fixture: ComponentFixture<PostsComponent>;
 
-  @Component({
-    selector: 'app-post',
-    template: '<div></div>',
-  })
-  class FakePostComponent {
-    @Input() post!: Post;
-  }
+  // @Component({
+  //   selector: 'app-post',
+  //   template: '<div></div>',
+  // })
+  // class FakePostComponent {
+  //   @Input() post!: Post;
+  // }
 
   beforeEach(() => {
     POSTS = [
@@ -42,7 +42,10 @@ describe('Posts Component', () => {
     mockPostService = jasmine.createSpyObj(['getPosts', 'deletePost']);
 
     TestBed.configureTestingModule({
-      declarations: [PostsComponent, FakePostComponent],
+      declarations: [
+        PostsComponent,
+        // FakePostComponent
+      ],
       providers: [
         {
           provide: PostService,
