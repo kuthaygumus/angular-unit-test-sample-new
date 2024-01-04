@@ -18,9 +18,7 @@ fdescribe('CalculatorService', () => {
       ],
     });
     calculator = TestBed.inject(CalculatorService);
-    loggerServiceSpy = TestBed.inject(
-      LoggerService
-    ) as jasmine.SpyObj<LoggerService>;
+    loggerServiceSpy = TestBed.inject(LoggerService) as jasmine.SpyObj<LoggerService>;
   });
 
   it('should add two numbers', () => {
