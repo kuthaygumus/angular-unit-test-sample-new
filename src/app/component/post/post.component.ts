@@ -11,7 +11,7 @@ export class PostComponent {
   @Output() delete = new EventEmitter<Post>();
 
   onDeletePost(event: Event) {
-    event.preventDefault();
+    event.stopPropagation();
     this.delete.emit(this.post);
   }
 }
